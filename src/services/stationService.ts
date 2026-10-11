@@ -20,20 +20,33 @@ export const STATUS_LABELS: Record<StationStatus, string> = {
   unknown: "Status unknown",
 };
 
-const sorted = [...stations].sort((a, b) => {
-  const pa = isPlayable(a) ? 0 : 1;
-  const pb = isPlayable(b) ? 0 : 1;
-  return pa - pb || a.name.localeCompare(b.name);
-});
-
+/**
+ * Two deliberately separate views of the same data:
+ *  - catalog  : every record, including those with no eligible stream. For internal use,
+ *               tests and detail pages reached by direct link. Never render as playable lists.
+ *  - public   : only records whose stream is eligible. Everything user-facing lists, searches
+ *               and features come from here.
+ * Records are never removed from the data to achieve this.
+ */
 export function isPlayable(s: RadioStation) {
-  return s.status === "online" && !!s.streamUrl;
+  return s.stream.eligible;
 }
 
-export function getAllStations() {
-  return sorted;
+const byPlayableThenName = (a: RadioStation, b: RadioStation) => a.name.localeCompare(b.name);
+
+const publicSorted = stations.filter(isPlayable).sort(byPlayableThenName);
+
+/** Every station record, playable or not. Not for public lists. */
+export function getCatalogStations() {
+  return stations;
 }
 
+/** Stations with an eligible stream, A–Z. Use this for every public list. */
+export function getPublicStations() {
+  return publicSorted;
+}
+
+/** Any record by slug or id (detail pages may explain why a station has no stream). */
 export function getStationBySlug(slug: string) {
   return stations.find((s) => s.slug === slug || s.id === slug);
 }
@@ -43,16 +56,16 @@ export function getStationById(id: string) {
 }
 
 export function getFeaturedStations() {
-  return stations.filter((s) => s.isFeatured).sort((a, b) => a.order - b.order);
+  return publicSorted.filter((s) => s.isFeatured).sort((a, b) => a.order - b.order);
 }
 
 export function getLiveStations() {
-  return sorted.filter(isPlayable);
+  return publicSorted;
 }
 
 /** Categories that actually have stations, in canonical order. */
 export function getAvailableCategories(): StationCategory[] {
-  const set = new Set(stations.flatMap((s) => s.categories));
+  const set = new Set(publicSorted.flatMap((s) => s.categories));
   return (Object.keys(CATEGORY_LABELS) as StationCategory[]).filter((c) => set.has(c));
 }
 
@@ -82,7 +95,7 @@ function closeEnough(a: string, b: string) {
 
 export function searchStations(query: string, category?: StationCategory | "all") {
   const q = norm(query.trim());
-  return sorted.filter((s) => {
+  return publicSorted.filter((s) => {
     if (category && category !== "all" && !s.categories.includes(category)) return false;
     if (!q) return true;
     // "kissfm", "radio10", "102.3" match regardless of spacing

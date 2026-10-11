@@ -1,14 +1,9 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# ONEYA — https://oneya.vercel.app
 User-agent: *
 Allow: /
+# Not content: server functions, the offline fallback page and the service worker script.
+Disallow: /_serverFn/
+Disallow: /offline.html
+Disallow: /sw.js
+
+Sitemap: https://oneya.vercel.app/sitemap.xml

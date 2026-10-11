@@ -5,7 +5,8 @@ import type { StationCategory } from "@/types/station";
 import { HeaderIconLink, PageBody, PageHeader } from "@/components/layout/AppShell";
 import { CategoryFilter } from "@/components/stations/CategoryFilter";
 import { StationList } from "@/components/stations/StationList";
-import { searchStations } from "@/services/stationService";
+import { breadcrumbLd, itemListLd, seo } from "@/lib/site";
+import { getPublicStations, searchStations } from "@/services/stationService";
 
 const schema = z.object({
   category: z
@@ -16,20 +17,25 @@ const schema = z.object({
 
 export const Route = createFileRoute("/stations")({
   validateSearch: schema,
-  head: () => ({
-    meta: [
-      { title: "All stations — ONEYA · Rwanda Radio" },
-      {
-        name: "description",
-        content:
-          "Browse radio stations broadcasting from Rwanda by category: music, news, religious and community radio.",
-      },
-      { property: "og:title", content: "All stations — ONEYA · Rwanda Radio" },
-      { property: "og:description", content: "Browse radio stations broadcasting from Rwanda." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  head: () => {
+    const list = getPublicStations();
+    return seo({
+      title: "Live radio stations from Rwanda",
+      description: `Listen to ${list.length} live radio stations from Rwanda in your browser: music, news, religious and community radio. Press play on any station.`,
+      path: "/stations", // filtered views (?category=) canonicalise to the main list
+      jsonLd: [
+        itemListLd(
+          "Live radio stations from Rwanda",
+          "/stations",
+          list.map((s) => ({ name: s.name, path: `/station/${s.slug}` })),
+        ),
+        breadcrumbLd([
+          { name: "ONEYA", path: "/" },
+          { name: "Radio", path: "/stations" },
+        ]),
+      ],
+    });
+  },
   component: Stations,
 });
 
@@ -37,12 +43,11 @@ function Stations() {
   const { category = "all" } = Route.useSearch();
   const navigate = useNavigate({ from: "/stations" });
   const list = searchStations("", category);
-  const playable = list.filter((s) => s.status === "online").length;
 
   return (
     <>
       <PageHeader
-        title="Stations"
+        title="Radio"
         action={
           <HeaderIconLink to="/search" label="Search stations">
             <Search className="size-5" />
@@ -58,7 +63,7 @@ function Stations() {
             }
           />
           <p className="py-3 text-xs text-muted-foreground">
-            {list.length} stations · {playable} with an online stream
+            {list.length} {list.length === 1 ? "station" : "stations"} you can listen to live
           </p>
         </div>
         <StationList stations={list} label="Stations" />

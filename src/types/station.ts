@@ -9,6 +9,8 @@ export type StationCategory = "music" | "news" | "talk" | "sports" | "religious"
  */
 export type StationStatus = "online" | "offline" | "unavailable" | "coming_soon" | "unknown";
 
+export type { StreamAssessment, StreamState } from "@/lib/streamEligibility";
+
 export interface StationBadge {
   monogram: string;
   background: string;
@@ -45,8 +47,11 @@ export interface RadioStation {
   schedule?: ScheduleSlot[] | undefined;
   /** ISO date the schedule was last confirmed. Stale schedules are not shown. */
   scheduleUpdatedAt?: string | undefined;
+  /** Raw stream address as stored. Present for any well-formed URL, whether or not it is eligible. */
   streamUrl?: string | undefined;
   streamFormat?: string | undefined;
+  /** Why the stream is or is not offered publicly. `stream.eligible` is the only gate for playback and public lists. */
+  stream: import("@/lib/streamEligibility").StreamAssessment;
   website?: string | undefined;
   isFeatured?: boolean | undefined;
   /** Stream manually verified to play in browsers. */

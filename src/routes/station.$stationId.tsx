@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect, useRouter } from "@tanstack/react-router";
 import {
   ArrowLeft,
   ExternalLink,
@@ -8,6 +8,7 @@ import {
   MapPin,
   Radio,
   Share2,
+  Tv,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { StationLogo } from "@/components/stations/StationLogo";
@@ -15,9 +16,13 @@ import { StationStatusLabel } from "@/components/stations/StationStatus";
 import { useRadioPlayer, STATUS_TEXT } from "@/context/RadioPlayerContext";
 import { useFavorites } from "@/hooks/useLibrary";
 import { shareStation } from "@/lib/share";
+import { breadcrumbLd, broadcastServiceLd, seo } from "@/lib/site";
+import { StationList } from "@/components/stations/StationList";
+import { getCatalogChannels } from "@/services/channelService";
 import {
   CATEGORY_LABELS,
   STATUS_LABELS,
+  getPublicStations,
   getStationBySlug,
   isPlayable,
 } from "@/services/stationService";
@@ -28,26 +33,54 @@ export const Route = createFileRoute("/station/$stationId")({
   loader: ({ params }) => {
     const station = getStationBySlug(params.stationId);
     if (!station) throw notFound();
+    // One URL per station: ids and old spellings redirect to the canonical slug.
+    if (params.stationId !== station.slug)
+      throw redirect({
+        to: "/station/$stationId",
+        params: { stationId: station.slug },
+        statusCode: 301,
+      });
     return { station };
   },
   head: ({ loaderData }) => {
     const s = loaderData?.station;
-    const title = s
-      ? `${s.name}${s.frequency ? ` ${s.frequency}` : ""} — ONEYA · Rwanda Radio`
-      : "Station — ONEYA · Rwanda Radio";
-    const desc = s
-      ? `Listen to ${s.name}${s.frequency ? ` on ${s.frequency}` : ""}${s.location ? `, ${s.location.split("/")[0]?.trim()}` : ""}. Rwanda radio online.`
-      : "Rwanda radio station";
-    return {
-      meta: [
-        { title },
-        { name: "description", content: desc },
-        { property: "og:title", content: title },
-        { property: "og:description", content: desc },
-        { property: "og:type", content: "music.radio_station" },
-        { name: "twitter:card", content: "summary" },
+    if (!s)
+      return seo({
+        title: "Station not found",
+        description: "This station link is out of date.",
+        path: "/stations",
+        noindex: true,
+      });
+    const path = `/station/${s.slug}`;
+    const place = s.location?.split("/")[0]?.trim();
+    const playable = isPlayable(s);
+    return seo({
+      title: `${s.name}${s.frequency ? ` ${s.frequency}` : ""} live`,
+      description: playable
+        ? `Listen to ${s.name}${s.frequency ? ` on ${s.frequency}` : ""}${place ? `, ${place}` : ""} live in your browser on ONEYA. Streams directly from the station.`
+        : `${s.name} is in ONEYA's catalog but has no live stream available yet.`,
+      path,
+      type: "music.radio_station",
+      // Stations without a working stream are placeholders: keep them out of the index and the sitemap.
+      noindex: !playable,
+      jsonLd: [
+        ...(playable
+          ? [
+              broadcastServiceLd({
+                name: s.name,
+                path,
+                frequency: s.frequency,
+                languages: s.languages,
+              }),
+            ]
+          : []),
+        breadcrumbLd([
+          { name: "ONEYA", path: "/" },
+          { name: "Radio", path: "/stations" },
+          { name: s.name, path },
+        ]),
       ],
-    };
+    });
   },
   component: StationDetail,
   notFoundComponent: () => (
@@ -76,15 +109,14 @@ export const Route = createFileRoute("/station/$stationId")({
 });
 
 function Fact({ icon, label, children }: { icon: ReactNode; label: string; children: ReactNode }) {
+  // <dl> may only contain <dt>/<dd> (optionally grouped in a <div>), so the icon lives inside the <dt>.
   return (
-    <div className="flex gap-3 px-4 py-3">
-      <span className="mt-0.5 text-muted-foreground" aria-hidden>
-        {icon}
-      </span>
-      <div className="min-w-0">
-        <dt className="text-xs text-muted-foreground">{label}</dt>
-        <dd className="text-sm">{children}</dd>
-      </div>
+    <div className="px-4 py-3">
+      <dt className="flex items-center gap-2 text-xs text-muted-foreground">
+        <span aria-hidden>{icon}</span>
+        {label}
+      </dt>
+      <dd className="mt-1 pl-6 text-sm">{children}</dd>
     </div>
   );
 }
@@ -100,6 +132,13 @@ function StationDetail() {
   const busy = current && (p.status === "connecting" || p.status === "reconnecting");
   const playing = current && p.status === "playing";
   const failed = current && (p.status === "error" || p.status === "offline");
+  const tv = getCatalogChannels().find((c) => c.brandId === s.id && c.stream.eligible);
+  const firstCat = s.categories[0];
+  const related = playable
+    ? getPublicStations()
+        .filter((o) => o.id !== s.id && firstCat && o.categories.includes(firstCat))
+        .slice(0, 4)
+    : [];
 
   const secondaryBtn =
     "inline-flex h-11 items-center gap-2 rounded-md border border-border bg-card px-4 text-sm font-medium hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -186,6 +225,12 @@ function StationDetail() {
           <Share2 className="size-4" />
           Share
         </button>
+        {tv && (
+          <Link to="/tv/$channelSlug" params={{ channelSlug: tv.slug }} className={secondaryBtn}>
+            <Tv className="size-4" aria-hidden />
+            Watch on TV
+          </Link>
+        )}
       </div>
 
       <section className="mt-8 px-4 md:px-8">
@@ -229,6 +274,20 @@ function StationDetail() {
           )}
         </dl>
       </section>
+
+      {related.length > 0 && firstCat && (
+        <section className="mt-8" aria-labelledby="related-heading">
+          <h2
+            id="related-heading"
+            className="mb-2 px-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground md:px-8"
+          >
+            More {CATEGORY_LABELS[firstCat].toLowerCase()} stations
+          </h2>
+          <div className="md:px-8">
+            <StationList stations={related} label={`More ${CATEGORY_LABELS[firstCat]} stations`} />
+          </div>
+        </section>
+      )}
     </div>
   );
 }

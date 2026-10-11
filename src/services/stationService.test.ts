@@ -1,95 +1,73 @@
 import { describe, expect, it } from "vitest";
-import { getAllStations, getStationById, isPlayable, searchStations } from "./stationService";
+import registry from "@/data/registry.json";
+import {
+  getCatalogStations,
+  getPublicStations,
+  getStationById,
+  getStationBySlug,
+  isPlayable,
+  searchStations,
+} from "./stationService";
 
-describe("supplied station catalog", () => {
-  it("contains exactly all 38 supplied unique station identifiers", () => {
-    const expected = [
-      "radio10",
-      "flash",
-      "city",
-      "radiorwanda",
-      "isango",
-      "kfms",
-      "huguka",
-      "radioone",
-      "royalfm",
-      "kissfm",
-      "authentic",
-      "voiceafrica",
-      "voicehope",
-      "umucyo",
-      "voa",
-      "rfi",
-      "finefm",
-      "adepr",
-      "sana",
-      "energy",
-      "powerfm",
-      "salus",
-      "bbkigali",
-      "radioo",
-      "inkoramutima",
-      "isangano",
-      "ishingiro",
-      "radioizuba",
-      "isibofm",
-      "magicfm",
-      "radiohuye",
-      "radiointeko",
-      "thechoicelive",
-      "ktradio",
-      "capitalfm",
-      "ikosora",
-      "biryogo",
-      "radionmaria",
-    ];
-    expect(
-      getAllStations()
-        .map((s) => s.id)
-        .sort(),
-    ).toEqual(expected.sort());
+describe("station catalog is preserved", () => {
+  it("keeps every registry record, whether or not it has a stream", () => {
+    const catalogIds = getCatalogStations()
+      .map((s) => s.id)
+      .sort();
+    const registryIds = (registry as { id: string }[]).map((r) => r.id).sort();
+    expect(catalogIds).toEqual(registryIds);
   });
-  it("makes supplied HTTP streams active and playable, including the new Zeno stations", () => {
-    expect(getStationById("thechoicelive")?.streamUrl).toBe("https://stream.zeno.fm/37uyt4kd468uv");
-    expect(getStationById("ktradio")?.streamUrl).toBe("https://stream.zeno.fm/qxgrn2xdf18uv");
-    expect(getStationById("isibofm")?.streamUrl).toBe("https://stream.zeno.fm/dsewultj9f1vv");
-    expect(getAllStations().filter(isPlayable)).toHaveLength(18);
-    for (const station of getAllStations().filter((s) => s.streamUrl)) {
-      expect(station.status).toBe("online");
-      expect(isPlayable(station)).toBe(true);
-    }
-  });
-  it("keeps stations without streams coming soon and unplayable", () => {
-    const flash = getStationById("flash");
-    expect(flash?.status).toBe("coming_soon");
-    expect(flash?.streamUrl).toBeUndefined();
-    if (!flash) throw new Error("Missing supplied Flash FM");
-    expect(isPlayable(flash)).toBe(false);
-    expect(
-      getAllStations()
-        .filter((s) => !s.streamUrl)
-        .every((s) => s.status === "coming_soon"),
-    ).toBe(true);
-  });
-  it("preserves KISS FM as the only manually verified stream", () => {
-    expect(
-      getAllStations()
-        .filter((s) => s.isVerified)
-        .map((s) => s.id),
-    ).toEqual(["kissfm"]);
-    expect(getStationById("kissfm")?.streamUrl).toBe(
-      "https://kissfm-atunwadigital.streamguys1.com/kissfm",
-    );
-  });
-  it("finds KISS FM by the supplied name and frequency", () => {
-    expect(searchStations("KISS").map((s) => s.id)).toEqual(["kissfm"]);
-    expect(searchStations("102.3").map((s) => s.id)).toEqual(["kissfm"]);
+  it("keeps ids and slugs unique and stable", () => {
+    const ids = getCatalogStations().map((s) => s.id);
+    const slugs = getCatalogStations().map((s) => s.slug);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    expect(getStationBySlug("kiss-fm")?.id).toBe("kissfm");
   });
 });
 
-describe("search resilience", () => {
-  it("tolerates spacing and one typo", async () => {
-    const { searchStations } = await import("./stationService");
+describe("only stations with an eligible stream are public", () => {
+  it("excludes stations with no stream from every public list but keeps the record", () => {
+    const authentic = getStationById("authentic");
+    expect(authentic).toBeDefined(); // record kept
+    expect(authentic?.stream.state).toBe("missing");
+    expect(isPlayable(authentic!)).toBe(false);
+    expect(getPublicStations().some((s) => s.id === "authentic")).toBe(false);
+    expect(searchStations("authentic").some((s) => s.id === "authentic")).toBe(false);
+  });
+  it("honours records the owner marked catalog_only even when a URL is stored", () => {
+    const flash = getStationById("flash");
+    expect(flash?.streamUrl).toBeDefined(); // URL preserved
+    expect(flash?.stream.state).toBe("not_enabled");
+    expect(isPlayable(flash!)).toBe(false);
+    expect(getPublicStations().some((s) => s.id === "flash")).toBe(false);
+  });
+  it("every public station is eligible and has a URL; nothing ineligible leaks in", () => {
+    for (const s of getPublicStations()) {
+      expect(s.stream.eligible).toBe(true);
+      expect(s.streamUrl).toBeTruthy();
+      expect(s.status).toBe("online");
+    }
+    expect(getPublicStations().length).toBeLessThan(getCatalogStations().length);
+  });
+  it("search only returns public stations", () => {
+    const all = searchStations("");
+    expect(all.every(isPlayable)).toBe(true);
+    expect(all).toHaveLength(getPublicStations().length);
+  });
+});
+
+describe("known stations", () => {
+  it("KISS FM is public, found by name and frequency, and the only manually verified stream", () => {
+    expect(searchStations("KISS").map((s) => s.id)).toEqual(["kissfm"]);
+    expect(searchStations("102.3").map((s) => s.id)).toEqual(["kissfm"]);
+    expect(
+      getCatalogStations()
+        .filter((s) => s.isVerified)
+        .map((s) => s.id),
+    ).toEqual(["kissfm"]);
+  });
+  it("tolerates spacing and one typo", () => {
     expect(searchStations("kissfm").some((s) => s.id === "kissfm")).toBe(true);
     expect(searchStations("kisss").some((s) => s.id === "kissfm")).toBe(true);
     expect(searchStations("zzzzqq")).toHaveLength(0);

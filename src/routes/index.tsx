@@ -6,7 +6,18 @@ import { PageBody, PageHeader, Section } from "@/components/layout/AppShell";
 import { FeaturedStrip } from "@/components/stations/FeaturedStrip";
 import { StationList } from "@/components/stations/StationList";
 import { CategoryFilter } from "@/components/stations/CategoryFilter";
-import { useRecentlyPlayed } from "@/hooks/useLibrary";
+import { ChannelList } from "@/components/tv/ChannelList";
+import { useRecentChannels, useRecentlyPlayed } from "@/hooks/useLibrary";
+import {
+  GOOGLE_SITE_VERIFICATION,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TAGLINE,
+  organizationLd,
+  seo,
+  websiteLd,
+} from "@/lib/site";
+import { getChannelById, getPublicChannels, isWatchable } from "@/services/channelService";
 import {
   getFeaturedStations,
   getStationById,
@@ -15,39 +26,44 @@ import {
 } from "@/services/stationService";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "What's on? — ONEYA · Rwanda Radio" },
-      {
-        name: "description",
-        content:
-          "Live radio stations broadcasting from Rwanda. Find a station, tap play, keep listening while you browse.",
-      },
-      { property: "og:title", content: "What's on? — ONEYA · Rwanda Radio" },
-      {
-        property: "og:description",
-        content:
-          "Live radio stations broadcasting from Rwanda, in your browser or as an installable app.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  head: () => {
+    const h = seo({
+      title: `${SITE_NAME} · ${SITE_TAGLINE}`,
+      rawTitle: true,
+      description: SITE_DESCRIPTION,
+      path: "/",
+      jsonLd: [organizationLd(), websiteLd()],
+    });
+    return {
+      ...h,
+      meta: [...h.meta, { name: "google-site-verification", content: GOOGLE_SITE_VERIFICATION }],
+    };
+  },
   component: Home,
 });
 
 function Home() {
   const [category, setCategory] = useState<StationCategory | "all">("all");
   const recentIds = useRecentlyPlayed();
+  const recentChannelIds = useRecentChannels();
   const recent = useMemo(
     () =>
       recentIds
         .map(getStationById)
-        .filter((s): s is NonNullable<typeof s> => !!s)
+        .filter((s): s is NonNullable<typeof s> => !!s && isPlayable(s))
         .slice(0, 5),
     [recentIds],
   );
-  const featured = getFeaturedStations().filter(isPlayable);
+  const recentChannels = useMemo(
+    () =>
+      recentChannelIds
+        .map(getChannelById)
+        .filter((c): c is NonNullable<typeof c> => !!c && isWatchable(c))
+        .slice(0, 3),
+    [recentChannelIds],
+  );
+  const featured = getFeaturedStations();
+  const channels = getPublicChannels();
   const list = searchStations("", category);
 
   return (
@@ -60,22 +76,47 @@ function Home() {
             className="flex h-11 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Search className="size-4" aria-hidden />
-            Search stations, frequency, city
+            Search radio, TV, frequency or city
           </Link>
         </div>
 
-        {recent.length > 0 && (
-          <Section title="Recently played">
-            <StationList stations={recent} label="Recently played" />
+        {(recent.length > 0 || recentChannels.length > 0) && (
+          <Section title="Pick up where you left off">
+            {recentChannels.length > 0 && (
+              <ChannelList channels={recentChannels} label="Recently watched channels" />
+            )}
+            {recent.length > 0 && (
+              <div className={recentChannels.length > 0 ? "mt-3" : undefined}>
+                <StationList stations={recent} label="Recently played stations" />
+              </div>
+            )}
           </Section>
         )}
 
-        <Section title="ON NOW">
-          <FeaturedStrip stations={featured} />
-        </Section>
+        {channels.length > 0 && (
+          <Section
+            title="Live TV"
+            action={
+              <Link
+                to="/tv"
+                className="inline-flex items-center text-sm font-medium text-primary hover:underline"
+              >
+                See all <ChevronRight className="size-4" aria-hidden />
+              </Link>
+            }
+          >
+            <ChannelList channels={channels.slice(0, 3)} label="Live TV channels" />
+          </Section>
+        )}
+
+        {featured.length > 0 && (
+          <Section title="Featured radio">
+            <FeaturedStrip stations={featured} />
+          </Section>
+        )}
 
         <Section
-          title="Stations"
+          title="Radio stations"
           action={
             <Link
               to="/stations"
@@ -89,7 +130,7 @@ function Home() {
             <CategoryFilter value={category} onChange={setCategory} />
           </div>
           <div className="mt-3">
-            <StationList stations={list.slice(0, 12)} label="Stations" />
+            <StationList stations={list.slice(0, 12)} label="Radio stations" />
           </div>
         </Section>
       </PageBody>

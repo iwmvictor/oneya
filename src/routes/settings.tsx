@@ -1,27 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageBody, PageHeader } from "@/components/layout/AppShell";
-import { clearRecentlyPlayed, useTheme, type ThemePref } from "@/hooks/useLibrary";
+import { Link } from "@tanstack/react-router";
+import { useInstall } from "@/components/install/InstallProvider";
+import {
+  clearRecentChannels,
+  clearRecentlyPlayed,
+  useTheme,
+  type ThemePref,
+} from "@/hooks/useLibrary";
+import { seo } from "@/lib/site";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
 export const Route = createFileRoute("/settings")({
-  head: () => ({
-    meta: [
-      { title: "Settings — ONEYA · Rwanda Radio" },
-      {
-        name: "description",
-        content: "Theme, installation, privacy and data usage for ONEYA · Rwanda Radio.",
-      },
-      { property: "og:title", content: "Settings — ONEYA · Rwanda Radio" },
-      {
-        property: "og:description",
-        content: "Theme, installation, privacy and data usage for ONEYA · Rwanda Radio.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Settings",
+      description: "Theme, installation, privacy and data usage for ONEYA.",
+      path: "/settings",
+      noindex: true, // utility page
+    }),
   component: SettingsPage,
 });
 
@@ -40,6 +39,7 @@ function Group({ title, children }: { title: string; children: ReactNode }) {
 
 function SettingsPage() {
   const { pref, setPref } = useTheme();
+  const { guide, standalone, installed, hasNativePrompt, install, openDialog } = useInstall();
   const opts: { v: ThemePref; label: string }[] = [
     { v: "system", label: "System" },
     { v: "light", label: "Light" },
@@ -77,51 +77,69 @@ function SettingsPage() {
           </div>
         </Group>
 
-        <Group title="Install the app">
-          <p className="px-4 py-3 text-muted-foreground">
-            <strong className="font-medium text-foreground">Android / Chrome:</strong> open the
-            browser menu and choose "Install app" or "Add to Home screen".
-          </p>
-          <p className="px-4 py-3 text-muted-foreground">
-            <strong className="font-medium text-foreground">iPhone / iPad:</strong> in Safari, tap
-            Share, then "Add to Home Screen".
-          </p>
-          <p className="px-4 py-3 text-muted-foreground">
-            <strong className="font-medium text-foreground">Desktop:</strong> use the install icon
-            in the address bar.
-          </p>
+        <Group title="Install ONEYA">
+          {standalone || installed ? (
+            <p className="px-4 py-3 text-muted-foreground">ONEYA is installed on this device.</p>
+          ) : (
+            <>
+              <p className="px-4 py-3 text-muted-foreground">
+                {hasNativePrompt || guide.canInstall
+                  ? "Open ONEYA from your home screen or desktop, in its own window."
+                  : (guide.note ?? "This browser can't install ONEYA.")}
+              </p>
+              {(hasNativePrompt || guide.canInstall) && (
+                <button
+                  type="button"
+                  onClick={() => (hasNativePrompt ? void install() : openDialog())}
+                  className="w-full px-4 py-3 text-left font-medium text-primary hover:bg-accent"
+                >
+                  {hasNativePrompt ? "Install ONEYA" : "How to install"}
+                </button>
+              )}
+            </>
+          )}
         </Group>
 
         <Group title="Data usage">
           <p className="px-4 py-3 text-muted-foreground">
-            Live radio uses roughly 30–60 MB per hour depending on the station. Audio only streams
-            while you're listening. The app itself works offline, but live radio always needs an
-            internet connection.
+            Live radio uses roughly 30–60 MB per hour depending on the station. Live TV uses
+            considerably more, depending on the channel's quality. Nothing streams until you press
+            play. Pages you've opened work offline, but live radio and TV always need an internet
+            connection.
           </p>
         </Group>
 
         <Group title="Privacy">
           <p className="px-4 py-3 text-muted-foreground">
-            No account needed. Favorites, recently played stations and your volume are stored only
-            on this device. Streams are played directly from each station's servers.
+            No account needed. Favorites, recently played items and your volume are stored only on
+            this device. Streams play directly from each broadcaster's servers. ONEYA uses Google
+            Analytics to measure which pages are visited. See the privacy notice for details.
           </p>
           <button
             type="button"
             onClick={() => {
               clearRecentlyPlayed();
+              clearRecentChannels();
               toast.success("Recently played cleared");
             }}
             className="w-full px-4 py-3 text-left font-medium text-primary hover:bg-accent"
           >
             Clear recently played
           </button>
+          <Link to="/privacy" className="block px-4 py-3 font-medium text-primary hover:bg-accent">
+            Privacy notice
+          </Link>
         </Group>
 
         <Group title="About">
           <p className="px-4 py-3 text-muted-foreground">
-            ONEYA · Rwanda Radio — listen to Rwanda, wherever you are. Station information is still
-            being verified; some stations are listed before their online stream is available.
+            ONEYA brings live radio and TV from Rwanda together in one place. Some stations are
+            listed before their online stream is available; they stay out of the playable lists
+            until it is.
           </p>
+          <Link to="/about" className="block px-4 py-3 font-medium text-primary hover:bg-accent">
+            About ONEYA
+          </Link>
         </Group>
       </PageBody>
     </>

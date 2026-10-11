@@ -1,29 +1,23 @@
 {
-  "name": "ONEYA \u00b7 Rwanda Radio",
-  "short_name": "ONEYA",
-  "description": "Listen to Rwanda, wherever you are. Live radio stations broadcasting from Rwanda.",
   "id": "/",
-  "start_url": "/",
+  "name": "ONEYA · Rwanda Radio & TV",
+  "short_name": "ONEYA",
+  "description": "Live radio stations and TV channels from Rwanda, in one place.",
+  "lang": "en",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#faf8f4",
+  "orientation": "any",
+  "background_color": "#e8e8e8",
   "theme_color": "#a82424",
+  "categories": ["entertainment", "music", "news"],
   "icons": [
-    {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Live radio", "short_name": "Radio", "url": "/stations", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Live TV", "short_name": "TV", "url": "/tv", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] }
   ]
 }

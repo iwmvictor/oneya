@@ -3,8 +3,8 @@
  * This module is the only place that knows about that file — UI reads stations via
  * src/services/stationService.ts so this can later be swapped for an API/admin backend.
  */
-import registry from "./registry.json";
-import { isValidStreamUrl } from "@/lib/audio";
+import { registry } from "./registry";
+import { assessStream, isHttpUrl } from "@/lib/streamEligibility";
 import authenticLogo from "@/assets/stations/authentic.asset.json";
 import bbkigaliLogo from "@/assets/stations/bbkigali.asset.json";
 import biryogoLogo from "@/assets/stations/biryogo.asset.json";
@@ -36,26 +36,34 @@ import voiceafricaLogo from "@/assets/stations/voiceafrica.asset.json";
 import voicehopeLogo from "@/assets/stations/voicehope.asset.json";
 import type { RadioStation, StationCategory, StationStatus } from "@/types/station";
 
-interface RegistryEntry {
-  id: string;
-  name: string;
-  dial: { display: string };
-  badge: { monogram: string; background: string; textColor: string };
-  coverage: { location: string; region: string; reach: string };
-  categories: string[];
-  languages: string[];
-  stream: { status: string; url: string | null; format: string | null };
-  links: { website?: string };
-}
-
 /** Curated featured stations (by registry id), in display order. */
 const FEATURED = ["kissfm", "radio10", "radiorwanda", "voicehope", "powerfm"];
 
 /** Streams confirmed by a person to play in the browser. */
 const VERIFIED = ["kissfm"];
 
-/** Supplied real logos imported through the asset pipeline. */
-const LOGOS: Record<string, string> = {
+/**
+ * Logo sources, in order of preference:
+ *  1. A real file in /public/stations/<id>.(webp|png|jpg|svg). Works on any host, including Vercel.
+ *  2. The Lovable asset-store pointer in src/assets/stations/<id>.asset.json. Those URLs
+ *     (/__l5e/assets-v1/…) only resolve on Lovable hosting, so they are used in development
+ *     or when VITE_USE_LOVABLE_ASSETS=1. Elsewhere they would 404 on every list.
+ * With neither, the UI shows the station's monogram tile (never a fabricated logo).
+ */
+const PUBLIC_LOGO_FILES = Object.keys(
+  import.meta.glob("/public/stations/*.{webp,png,jpg,jpeg,svg}"),
+);
+const USE_LOVABLE_ASSETS =
+  import.meta.env.DEV || import.meta.env["VITE_USE_LOVABLE_ASSETS"] === "1";
+
+function publicLogoFor(id: string) {
+  const hit = PUBLIC_LOGO_FILES.find(
+    (f) => /\/public\/stations\/([^/]+)\.[a-z]+$/.exec(f)?.[1] === id,
+  );
+  return hit?.replace("/public", "");
+}
+
+const LOVABLE_LOGOS: Record<string, string> = {
   authentic: authenticLogo.url,
   bbkigali: bbkigaliLogo.url,
   biryogo: biryogoLogo.url,
@@ -100,11 +108,15 @@ export function slugify(name: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-export const stations: RadioStation[] = (registry as RegistryEntry[]).map((r, i) => {
-  const streamUrl = isValidStreamUrl(r.stream.url ?? undefined)
-    ? (r.stream.url ?? undefined)
-    : undefined;
-  const status: StationStatus = streamUrl ? "online" : "coming_soon";
+export const stations: RadioStation[] = registry.map((r, i) => {
+  const stream = assessStream({ url: r.stream.url, declaredStatus: r.stream.status });
+  const streamUrl = isHttpUrl(r.stream.url ?? undefined) ? (r.stream.url ?? undefined) : undefined;
+  // Presentation status is derived from the assessment, never from "a URL exists".
+  const status: StationStatus = stream.eligible
+    ? "online"
+    : stream.state === "missing" || stream.state === "not_enabled"
+      ? "coming_soon"
+      : "unavailable";
   const freq = r.dial.display && r.dial.display !== "Online" ? r.dial.display : undefined;
   return {
     id: r.id,
@@ -118,7 +130,7 @@ export const stations: RadioStation[] = (registry as RegistryEntry[]).map((r, i)
       CATEGORIES.includes(c as StationCategory),
     ),
     languages: r.languages ?? [],
-    logo: LOGOS[r.id],
+    logo: publicLogoFor(r.id) ?? (USE_LOVABLE_ASSETS ? LOVABLE_LOGOS[r.id] : undefined),
     badge: {
       monogram: r.badge.monogram,
       background: r.badge.background,
@@ -127,6 +139,7 @@ export const stations: RadioStation[] = (registry as RegistryEntry[]).map((r, i)
     description: DESCRIPTIONS[r.id],
     streamUrl,
     streamFormat: r.stream.format ?? undefined,
+    stream,
     website: r.links.website || undefined,
     isFeatured: FEATURED.includes(r.id),
     isVerified: VERIFIED.includes(r.id),

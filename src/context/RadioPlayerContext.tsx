@@ -21,6 +21,8 @@ import {
 } from "@/lib/audio";
 import { buildMediaMetadata, type NowPlayingInfo } from "@/lib/mediaSession";
 import { getNowPlaying } from "@/services/scheduleService";
+import { claimMediaFocus, registerMediaPauser } from "@/lib/mediaFocus";
+import { recordPlay } from "@/lib/engagement";
 
 export type PlayerStatus =
   "idle" | "connecting" | "playing" | "paused" | "reconnecting" | "error" | "offline";
@@ -45,6 +47,8 @@ interface PlayerApi extends PlayerState {
   isCurrent: (id: string) => boolean;
   expanded: boolean;
   setExpanded: (v: boolean) => void;
+  /** Re-register the OS/lock-screen controls for radio (e.g. after TV had them). */
+  reclaimMediaSession: () => void;
 }
 
 const PlayerContext = createContext<PlayerApi | null>(null);
@@ -69,6 +73,8 @@ export function RadioPlayerProvider({ children }: { children: ReactNode }) {
   const wantPlayRef = useRef(false);
   /** Increments on every load so late events from a superseded stream are ignored. */
   const loadIdRef = useRef(0);
+  /** Counts at most one engagement play per user-initiated start. */
+  const countedPlayRef = useRef(true);
 
   const [station, setStation] = useState<RadioStation | null>(null);
   const [status, setStatusState] = useState<PlayerStatus>("idle");
@@ -143,6 +149,10 @@ export function RadioPlayerProvider({ children }: { children: ReactNode }) {
       reconnectRef.current.attempts = 0;
       setError(null);
       setStatus("playing");
+      if (!countedPlayRef.current) {
+        countedPlayRef.current = true;
+        recordPlay();
+      }
     };
     // OS/headset/another app paused us: respect it as a user pause.
     const onPause = () => {
@@ -224,6 +234,8 @@ export function RadioPlayerProvider({ children }: { children: ReactNode }) {
       if (!target || !isPlayable(target)) return;
       reconnectRef.current.attempts = 0;
       wantPlayRef.current = true;
+      countedPlayRef.current = false;
+      claimMediaFocus("radio"); // pauses TV if it was playing
       if (stationRef.current?.id !== target.id) {
         stationRef.current = target;
         setStation(target);
@@ -298,7 +310,7 @@ export function RadioPlayerProvider({ children }: { children: ReactNode }) {
 
   // Lock screen / headset controls. Live radio: only play, pause, stop. Seek/track
   // actions are explicitly cleared so the OS never shows fake controls.
-  useEffect(() => {
+  const reclaimMediaSession = useCallback(() => {
     if (typeof navigator === "undefined" || !("mediaSession" in navigator)) return;
     const ms = navigator.mediaSession;
     const set = (action: MediaSessionAction, handler: MediaSessionActionHandler | null) => {
@@ -320,6 +332,13 @@ export function RadioPlayerProvider({ children }: { children: ReactNode }) {
     ] as MediaSessionAction[])
       set(a, null);
   }, [play, pause, stop]);
+
+  useEffect(() => {
+    reclaimMediaSession();
+  }, [reclaimMediaSession]);
+
+  // Let the TV player pause radio when it takes over.
+  useEffect(() => registerMediaPauser("radio", pause), [pause]);
 
   // Current program/presenter from the station schedule. Re-checked on station
   // change and once a minute so lock-screen metadata rolls over with the schedule.
@@ -372,6 +391,7 @@ export function RadioPlayerProvider({ children }: { children: ReactNode }) {
       isCurrent: (id) => station?.id === id,
       expanded,
       setExpanded,
+      reclaimMediaSession,
     }),
     [
       station,
@@ -387,6 +407,7 @@ export function RadioPlayerProvider({ children }: { children: ReactNode }) {
       setVolume,
       toggleMute,
       expanded,
+      reclaimMediaSession,
     ],
   );
 

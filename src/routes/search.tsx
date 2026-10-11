@@ -4,26 +4,21 @@ import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { PageBody, PageHeader } from "@/components/layout/AppShell";
 import { StationList } from "@/components/stations/StationList";
+import { ChannelList } from "@/components/tv/ChannelList";
+import { seo } from "@/lib/site";
+import { searchChannels } from "@/services/channelService";
 import { searchStations } from "@/services/stationService";
 
 export const Route = createFileRoute("/search")({
   validateSearch: z.object({ q: z.string().optional().catch(undefined) }),
-  head: () => ({
-    meta: [
-      { title: "Search stations — ONEYA · Rwanda Radio" },
-      {
-        name: "description",
-        content: "Search Rwanda radio stations by name, frequency, city or category.",
-      },
-      { property: "og:title", content: "Search stations — ONEYA · Rwanda Radio" },
-      {
-        property: "og:description",
-        content: "Find a Rwanda radio station by name, frequency or city.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Search radio and TV",
+      description:
+        "Search Rwanda's live radio stations and TV channels by name, frequency, city or category.",
+      path: "/search",
+      noindex: true, // result pages are infinite query variations; the page itself stays crawlable
+    }),
   component: SearchPage,
 });
 
@@ -43,6 +38,8 @@ function SearchPage() {
   }, [value, navigate]);
 
   const results = searchStations(value);
+  const channelResults = searchChannels(value);
+  const total = results.length + channelResults.length;
 
   return (
     <>
@@ -50,7 +47,7 @@ function SearchPage() {
       <PageBody>
         <div className="px-4 pt-3 sm:px-0">
           <label htmlFor="station-search" className="sr-only">
-            Search stations
+            Search radio and TV
           </label>
           <div className="relative">
             <SearchIcon
@@ -65,7 +62,7 @@ function SearchPage() {
               autoComplete="off"
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder="Station, frequency, city or category"
+              placeholder="Station, channel, frequency or city"
               className="h-12 w-full rounded-md border border-input bg-card pl-9 pr-11 text-base placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/40"
             />
             {value && (
@@ -84,15 +81,16 @@ function SearchPage() {
           </div>
           <p aria-live="polite" className="py-3 text-xs text-muted-foreground">
             {value
-              ? `${results.length} ${results.length === 1 ? "result" : "results"}`
-              : "All stations"}
+              ? `${total} ${total === 1 ? "result" : "results"}`
+              : "All radio stations and TV channels"}
           </p>
         </div>
-        {results.length === 0 ? (
+        {total === 0 ? (
           <div className="mt-8 flex flex-col items-center px-4 text-center">
-            <h2 className="font-semibold">No stations found</h2>
+            <h2 className="font-semibold">Nothing found</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Try a station name like "KISS" or a frequency like "102.3".
+              Try a station name like "KISS", a channel like "Radio10 TV" or a frequency like
+              "102.3".
             </p>
             <button
               type="button"
@@ -103,7 +101,30 @@ function SearchPage() {
             </button>
           </div>
         ) : (
-          <StationList stations={results} label="Search results" />
+          <>
+            {channelResults.length > 0 && (
+              <section aria-labelledby="tv-results" className="mb-4">
+                <h2
+                  id="tv-results"
+                  className="mb-2 px-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground sm:px-0"
+                >
+                  TV channels
+                </h2>
+                <ChannelList channels={channelResults} label="TV channel results" />
+              </section>
+            )}
+            {results.length > 0 && (
+              <section aria-labelledby="radio-results">
+                <h2
+                  id="radio-results"
+                  className="mb-2 px-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground sm:px-0"
+                >
+                  Radio stations
+                </h2>
+                <StationList stations={results} label="Radio search results" />
+              </section>
+            )}
+          </>
         )}
       </PageBody>
     </>

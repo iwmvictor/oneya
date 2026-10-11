@@ -4,6 +4,7 @@ import { createLocalStore } from "@/lib/storage";
 // Favorites & recents are stored as station ids. Shape kept simple so it can sync to an account later.
 const favoritesStore = createLocalStore<string[]>("rr:favorites", []);
 const recentStore = createLocalStore<string[]>("rr:recent", []);
+const recentChannelStore = createLocalStore<string[]>("rr:recent-tv", []);
 const RECENT_LIMIT = 8;
 
 export function useFavorites() {
@@ -27,6 +28,18 @@ export function addRecentlyPlayed(id: string) {
 
 export function clearRecentlyPlayed() {
   recentStore.set([]);
+}
+
+export function useRecentChannels() {
+  return recentChannelStore.useValue();
+}
+
+export function addRecentChannel(id: string) {
+  recentChannelStore.set((prev) => [id, ...prev.filter((x) => x !== id)].slice(0, RECENT_LIMIT));
+}
+
+export function clearRecentChannels() {
+  recentChannelStore.set([]);
 }
 
 export function useOnline() {

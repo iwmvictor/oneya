@@ -14,6 +14,9 @@ import { AppShell } from "@/components/layout/AppShell";
 import { Toaster } from "@/components/ui/sonner";
 import { THEME_BOOT_SCRIPT } from "@/hooks/useLibrary";
 import { registerServiceWorker } from "@/lib/pwa";
+import { InstallProvider } from "@/components/install/InstallProvider";
+import { GA_ENABLED, GA_INLINE, GA_SRC } from "@/lib/analytics";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -82,19 +85,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ONEYA · Rwanda Radio" },
-      { name: "description", content: "Listen to Rwanda, wherever you are." },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      // Fallbacks only: every public route sets its own title, description, canonical and social tags.
+      { title: `${SITE_NAME} · ${SITE_TAGLINE}` },
+      { name: "description", content: SITE_DESCRIPTION },
       { name: "theme-color", content: "#a82424" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
-      { name: "apple-mobile-web-app-title", content: "ONEYA · Rwanda Radio" },
+      { name: "apple-mobile-web-app-title", content: SITE_NAME },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
+      { rel: "icon", href: "/icons/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { rel: "icon", href: "/icons/favicon-16.png", type: "image/png", sizes: "16x16" },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -115,6 +120,13 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google tag (gtag.js): once, immediately after <head>, on every page. See src/lib/analytics.ts */}
+        {GA_ENABLED && (
+          <>
+            <script async src={GA_SRC} />
+            <script dangerouslySetInnerHTML={{ __html: GA_INLINE }} />
+          </>
+        )}
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
       </head>
@@ -134,8 +146,10 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <RadioPlayerProvider>
-        <AppShell />
-        <Toaster position="top-center" />
+        <InstallProvider>
+          <AppShell />
+          <Toaster position="top-center" />
+        </InstallProvider>
       </RadioPlayerProvider>
     </QueryClientProvider>
   );

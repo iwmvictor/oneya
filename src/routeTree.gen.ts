@@ -10,20 +10,35 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as FavoritesRouteImport } from './routes/favorites'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StationsRouteImport } from './routes/stations'
 import { Route as StationStationIdRouteImport } from './routes/station.$stationId'
+import { Route as TvIndexRouteImport } from './routes/tv.index'
+import { Route as TvChannelSlugRouteImport } from './routes/tv.$channelSlug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FavoritesRoute = FavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -36,6 +51,11 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StationsRoute = StationsRouteImport.update({
   id: '/stations',
   path: '/stations',
@@ -46,66 +66,111 @@ const StationStationIdRoute = StationStationIdRouteImport.update({
   path: '/station/$stationId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TvIndexRoute = TvIndexRouteImport.update({
+  id: '/tv/',
+  path: '/tv/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TvChannelSlugRoute = TvChannelSlugRouteImport.update({
+  id: '/tv/$channelSlug',
+  path: '/tv/$channelSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/favorites': typeof FavoritesRoute
+  '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stations': typeof StationsRoute
   '/station/$stationId': typeof StationStationIdRoute
+  '/tv/$channelSlug': typeof TvChannelSlugRoute
+  '/tv/': typeof TvIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/favorites': typeof FavoritesRoute
+  '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stations': typeof StationsRoute
   '/station/$stationId': typeof StationStationIdRoute
+  '/tv/$channelSlug': typeof TvChannelSlugRoute
+  '/tv': typeof TvIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/favorites': typeof FavoritesRoute
+  '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stations': typeof StationsRoute
   '/station/$stationId': typeof StationStationIdRoute
+  '/tv/$channelSlug': typeof TvChannelSlugRoute
+  '/tv/': typeof TvIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/favorites'
+    | '/privacy'
     | '/search'
     | '/settings'
+    | '/sitemap.xml'
     | '/stations'
     | '/station/$stationId'
+    | '/tv/$channelSlug'
+    | '/tv/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/favorites'
+    | '/privacy'
     | '/search'
     | '/settings'
+    | '/sitemap.xml'
     | '/stations'
     | '/station/$stationId'
+    | '/tv/$channelSlug'
+    | '/tv'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/favorites'
+    | '/privacy'
     | '/search'
     | '/settings'
+    | '/sitemap.xml'
     | '/stations'
     | '/station/$stationId'
+    | '/tv/$channelSlug'
+    | '/tv/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   FavoritesRoute: typeof FavoritesRoute
+  PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
   SettingsRoute: typeof SettingsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StationsRoute: typeof StationsRoute
   StationStationIdRoute: typeof StationStationIdRoute
+  TvChannelSlugRoute: typeof TvChannelSlugRoute
+  TvIndexRoute: typeof TvIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -117,11 +182,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/favorites': {
       id: '/favorites'
       path: '/favorites'
       fullPath: '/favorites'
       preLoaderRoute: typeof FavoritesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -138,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/stations': {
       id: '/stations'
       path: '/stations'
@@ -152,16 +238,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StationStationIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tv/': {
+      id: '/tv/'
+      path: '/tv'
+      fullPath: '/tv/'
+      preLoaderRoute: typeof TvIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tv/$channelSlug': {
+      id: '/tv/$channelSlug'
+      path: '/tv/$channelSlug'
+      fullPath: '/tv/$channelSlug'
+      preLoaderRoute: typeof TvChannelSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   FavoritesRoute: FavoritesRoute,
+  PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
   SettingsRoute: SettingsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StationsRoute: StationsRoute,
   StationStationIdRoute: StationStationIdRoute,
+  TvChannelSlugRoute: TvChannelSlugRoute,
+  TvIndexRoute: TvIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

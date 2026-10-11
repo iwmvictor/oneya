@@ -1,26 +1,54 @@
 import { Link, Outlet } from "@tanstack/react-router";
-import { Heart, Home, Moon, Radio, Search, Settings, Sun, WifiOff } from "lucide-react";
+import {
+  Download,
+  Heart,
+  Home,
+  Moon,
+  Radio,
+  Search,
+  Settings,
+  Sun,
+  Tv,
+  WifiOff,
+} from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { PlayerBar } from "@/components/player/PlayerBar";
 import { FullPlayer } from "@/components/player/FullPlayer";
 import { useOnline, useTheme } from "@/hooks/useLibrary";
 import { useRadioPlayer } from "@/context/RadioPlayerContext";
+import { InstallBanner, InstallDialog } from "@/components/install/InstallUi";
+import { useInstall } from "@/components/install/InstallProvider";
 import { cn } from "@/lib/utils";
 
 const NAV = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/stations", label: "Stations", icon: Radio },
+  { to: "/stations", label: "Radio", icon: Radio },
+  { to: "/tv", label: "TV", icon: Tv },
   { to: "/favorites", label: "Favorites", icon: Heart },
 ] as const;
 
 export function Wordmark({ className }: { className?: string }) {
   return (
     <span className={cn("inline-flex min-w-0 items-center gap-2.5", className)}>
-      <img src="/favicon.svg" alt="" className="size-8 shrink-0" />
+      {/* Colour mark on light, the supplied light mark on dark. */}
+      <img
+        src="/brand/logo-96.png"
+        alt=""
+        width={32}
+        height={32}
+        className="size-8 shrink-0 dark:hidden"
+      />
+      <img
+        src="/brand/logo-light-96.png"
+        alt=""
+        width={32}
+        height={32}
+        className="hidden size-8 shrink-0 dark:block"
+      />
       <span className="flex min-w-0 items-baseline gap-2">
         <span className="text-xl font-bold">ONEYA</span>
-        <span className="hidden text-xs text-muted-foreground sm:inline">· Rwanda Radio</span>
+        <span className="hidden text-xs text-muted-foreground sm:inline">· Radio &amp; TV</span>
       </span>
     </span>
   );
@@ -28,6 +56,7 @@ export function Wordmark({ className }: { className?: string }) {
 
 function TopNav() {
   const { pref, setPref } = useTheme();
+  const { canOfferInstall, install } = useInstall();
   const [dark, setDark] = useState(false);
   useEffect(() => {
     const update = () => setDark(document.documentElement.classList.contains("dark"));
@@ -44,7 +73,7 @@ function TopNav() {
   return (
     <header className="shrink-0 border-b border-border bg-card">
       <div className="mx-auto grid h-16 w-full max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-4 md:grid-cols-[auto_minmax(0,1fr)_auto] md:px-8">
-        <Link to="/" aria-label="ONEYA · Rwanda Radio home">
+        <Link to="/" aria-label="ONEYA home">
           <Wordmark />
         </Link>
         <nav aria-label="Main" className="hidden min-w-0 items-center justify-end gap-1 md:flex">
@@ -61,7 +90,16 @@ function TopNav() {
           ))}
         </nav>
         <div className="flex shrink-0 items-center">
-          <HeaderIconLink to="/search" label="Search stations">
+          {canOfferInstall && (
+            <button
+              type="button"
+              onClick={() => void install()}
+              className="mr-1 hidden h-10 items-center gap-1.5 rounded-md border border-border px-3 text-sm font-medium hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:inline-flex"
+            >
+              <Download className="size-4" aria-hidden /> Install
+            </button>
+          )}
+          <HeaderIconLink to="/search" label="Search radio and TV">
             <Search className="size-5" />
           </HeaderIconLink>
           <HeaderIconLink to="/settings" label="Settings">
@@ -89,7 +127,7 @@ function BottomNav() {
       aria-label="Main"
       className="border-t border-border bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
     >
-      <ul className="grid grid-cols-3">
+      <ul className="grid grid-cols-4">
         {NAV.map(({ to, label, icon: Icon }) => (
           <li key={to}>
             <Link
@@ -117,7 +155,7 @@ function OfflineBanner() {
       className="flex items-center justify-center gap-2 bg-foreground px-4 py-1.5 text-xs font-medium text-background"
     >
       <WifiOff className="size-3.5" aria-hidden />
-      You're offline. Browsing works, live radio needs a connection.
+      You're offline. Pages you've opened still work; live radio and TV need a connection.
     </div>
   );
 }
@@ -138,14 +176,42 @@ export function AppShell() {
       <div className="flex min-h-0 flex-1">
         <main id="main" className="min-w-0 flex-1 overflow-y-auto">
           <Outlet />
+          <SiteFooter />
         </main>
       </div>
       <div className={cn(station && "shadow-[0_-1px_0_var(--color-border)]")}>
+        <InstallBanner />
         <PlayerBar />
         <BottomNav />
       </div>
       <FullPlayer />
+      <InstallDialog />
     </div>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="mx-auto w-full max-w-5xl border-t border-border px-4 py-6 text-xs text-muted-foreground md:px-8">
+      <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-5 gap-y-1">
+        <Link
+          to="/about"
+          className="inline-flex h-9 items-center hover:text-foreground hover:underline"
+        >
+          About ONEYA
+        </Link>
+        <Link
+          to="/privacy"
+          className="inline-flex h-9 items-center hover:text-foreground hover:underline"
+        >
+          Privacy
+        </Link>
+      </nav>
+      <p className="mt-1 max-w-xl">
+        Streams belong to their broadcasters and play directly from their servers. ONEYA is not
+        affiliated with any station or channel.
+      </p>
+    </footer>
   );
 }
 
