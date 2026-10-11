@@ -1,0 +1,1523 @@
+[
+  {
+    "id": "bbkigali",
+    "name": "B&B Kigali FM",
+    "dial": {
+      "display": "89.7 FM",
+      "mhz": 89.7,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "B&B",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Rebero",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "active",
+      "url": "https://a.tunzilla.com/http://80.241.215.175:7480/;",
+      "format": "mp3",
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://yt3.googleusercontent.com/vgkVbbIY6GdH18OS5Nc6HKzkhHeraadHdqbzRF1642ByAokFxHSTcS0IyWZhVous7okk3gGP5u0=s160-c-k-c0x00ffffff-no-rj"
+    }
+  },
+  {
+    "id": "capitalfm",
+    "name": "Capital FM",
+    "dial": {
+      "display": "103.5 FM",
+      "mhz": 103.5,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "CF",
+      "background": "#0F1A24",
+      "textColor": "#E0F2FE",
+      "accentColor": "#38BDF8",
+      "theme": "cadet-blue"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "National"
+    },
+    "categories": ["news", "music"],
+    "languages": ["English", "Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/byd8us0ysouuv",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "city",
+    "name": "City Radio",
+    "dial": {
+      "display": "88.3 FM",
+      "mhz": 88.3,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "CITY",
+      "background": "#0F1A24",
+      "textColor": "#E0F2FE",
+      "accentColor": "#38BDF8",
+      "theme": "cadet-blue"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://theonestopradio.com/stream?url=http://s8.iqstreaming.com:8058/;stream.nsv",
+      "format": "mp3",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://oetpai.fra1.digitaloceanspaces.com/new_images/radioapp_49770.png"
+    }
+  },
+  {
+    "id": "countryfm",
+    "name": "Country FM",
+    "dial": {
+      "display": "105.7 FM",
+      "mhz": 105.7,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "CF",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Gihundwe",
+      "region": "Western Province",
+      "reach": "Regional"
+    },
+    "categories": ["music", "news"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": null,
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "energy",
+    "name": "Energy Radio",
+    "dial": {
+      "display": "88.8 FM",
+      "mhz": 88.8,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "ENRG",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Mugogo",
+      "region": "Rwanda",
+      "reach": "National"
+    },
+    "categories": ["news", "music", "community"],
+    "languages": ["Kinyarwanda", "English", "French"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://eu4.fastcast4u.com/proxy/energy?mp=/stream",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://cdn.onlineradiobox.com/img/l/6/77686.v11.png"
+    }
+  },
+  {
+    "id": "finefm",
+    "name": "Fine FM",
+    "dial": {
+      "display": "93.1 FM",
+      "mhz": 93.1,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "FINE",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://s11.myradiostream.com/26736/listen.mp3",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://cdn-profiles.tunein.com/s352774/images/logod.png"
+    }
+  },
+  {
+    "id": "flash",
+    "name": "Flash FM",
+    "dial": {
+      "display": "89.2 FM",
+      "mhz": 89.2,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "FLSH",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music", "news"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://a.tunzilla.com/http://80.241.215.175:7410/;",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "tv": {
+      "status": "active",
+      "url": "https://fn.rtsp.me/AiT5DoRHAOm6bATazdowYA/1791692758/hls/BU1Lr9xabYEDqX7k.m3u8?ip=197.157.155.20",
+      "format": "HLS",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "https://flash.rw/",
+      "logo": "https://cdn-profiles.tunein.com/s195522/images/logod.png"
+    }
+  },
+  {
+    "id": "isango",
+    "name": "Isango Star",
+    "dial": {
+      "display": "91.5 FM",
+      "mhz": 91.5,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "ISAN",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music", "news"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "active",
+      "url": "https://a.tunzilla.com/http://80.241.215.175:8000/;",
+      "format": "mp3",
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "isangano",
+    "name": "Isangano Radio",
+    "dial": {
+      "display": "104.9 FM",
+      "mhz": 104.9,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "ISNG",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Karongi",
+      "region": "Western Province",
+      "reach": "Regional"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/qugrdv7l2z0uv",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "isibofm",
+    "name": "Isibo FM",
+    "dial": {
+      "display": "98.7 FM",
+      "mhz": 98.7,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "ISIB",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["news", "music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/dsewultj9f1vv",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "tv": {
+      "status": "active",
+      "url": "https://5c46fa289c89f.streamlock.net/pub2live/myStream/chunklist_w1331520919.m3u8",
+      "format": "HLS",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "https://www.isibomedia.com",
+      "logo": "https://tuneyou.com/_next/image?url=https%3A%2F%2Fimages.tuneyou.com%2Fimages%2Flogos%2F500_500%2F67%2F17767%2FRadioISIBO98.7FM_3.jpg"
+    }
+  },
+  {
+    "id": "ishingiro",
+    "name": "Ishingiro Radio",
+    "dial": {
+      "display": "107.5 FM",
+      "mhz": 107.5,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "ISHN",
+      "background": "#0F1A24",
+      "textColor": "#E0F2FE",
+      "accentColor": "#38BDF8",
+      "theme": "cadet-blue"
+    },
+    "coverage": {
+      "location": "Byumba",
+      "region": "Northern Province",
+      "reach": "Regional"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/4t1v3cv9asyuv",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "kissfm",
+    "name": "KISS FM",
+    "dial": {
+      "display": "102.3 FM",
+      "mhz": 102.3,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "KISS",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Rebero",
+      "region": "Kigali",
+      "reach": "National"
+    },
+    "categories": ["music", "entertainment"],
+    "languages": ["English", "Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://kissfm-atunwadigital.streamguys1.com/kissfm",
+      "format": "mp3",
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "https://kissfm.rw/",
+      "logo": ""
+    }
+  },
+  {
+    "id": "ktradio",
+    "name": "KT Radio",
+    "dial": {
+      "display": "101.1 FM",
+      "mhz": 101.1,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "KR",
+      "background": "#0F1A24",
+      "textColor": "#E0F2FE",
+      "accentColor": "#38BDF8",
+      "theme": "cadet-blue"
+    },
+    "coverage": {
+      "location": "Mugogo",
+      "region": "Rwanda",
+      "reach": "Regional"
+    },
+    "categories": ["news", "talk", "community"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/qxgrn2xdf18uv",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "liferadio",
+    "name": "Dove Life Radio",
+    "dial": {
+      "display": "96.0 FM",
+      "mhz": 96.0,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "LR",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://stream.zeno.fm/8xbhlmmwldiuv",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://images.zeno.fm/7KPaS8hBhKq65buX6rvEUa057AEAj7-sKcYjyydEyqY/rs:fill:304:304/q:75/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNDJlZjVjNWMtNTZiOC00MzQ2LTk4NDAtZDE3ZDIyZDJkNzRiL2ltYWdlLz91PTE3MzU3MTk1NDkwMDA"
+    }
+  },
+  {
+    "id": "magicfm",
+    "name": "Magic FM",
+    "dial": {
+      "display": "90.7 FM",
+      "mhz": 90.7,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "MAGC",
+      "background": "#1B1724",
+      "textColor": "#F3E8FF",
+      "accentColor": "#A855F7",
+      "theme": "muted-violet"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "active",
+      "url": "https://listen.rba.co.rw:8085/mgcfm",
+      "format": null,
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://cdn-radiotime-logos.tunein.com/s231686d.png"
+    }
+  },
+  {
+    "id": "powerfm",
+    "name": "Power FM",
+    "dial": {
+      "display": "104.1 FM",
+      "mhz": 104.1,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "PWR",
+      "background": "#0F1A24",
+      "textColor": "#E0F2FE",
+      "accentColor": "#38BDF8",
+      "theme": "cadet-blue"
+    },
+    "coverage": {
+      "location": "Kigali / Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["English", "Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.casthost.net/listen/vision_radio_ltd1/radio.mp3",
+      "format": "mp3",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://cdn.radoxo.com/images/rwanda/1041-power-fm.webp"
+    }
+  },
+  {
+    "id": "radiohuye",
+    "name": "Radio Huye",
+    "dial": {
+      "display": "100.4 FM",
+      "mhz": 100.4,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "HUYE",
+      "background": "#181B20",
+      "textColor": "#E2E8F0",
+      "accentColor": "#64748B",
+      "theme": "slate"
+    },
+    "coverage": {
+      "location": "Huye",
+      "region": "Southern Province",
+      "reach": "Regional"
+    },
+    "categories": ["community", "news"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://listen.rba.co.rw:5053/huye",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://listen.rba.co.rw/radios/logos/radiohuye.PNG"
+    }
+  },
+  {
+    "id": "huguka",
+    "name": "Radio Huguka",
+    "dial": {
+      "display": "105.9 FM",
+      "mhz": 105.9,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "HGK",
+      "background": "#181B20",
+      "textColor": "#E2E8F0",
+      "accentColor": "#64748B",
+      "theme": "slate"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["news", "community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": null,
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "radioimanzi",
+    "name": "Radio Imanzi",
+    "dial": {
+      "display": "105.1 FM",
+      "mhz": 105.1,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RI",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://sapircast.caster.fm:11954/WSzjc",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://cdn-profiles.tunein.com/s349371/images/logod.jpg"
+    }
+  },
+  {
+    "id": "radiointeko",
+    "name": "Radio Inteko",
+    "dial": {
+      "display": "101.5 FM",
+      "mhz": 101.5,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "INTK",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Kigali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://listen.rba.co.rw:8007/inteko",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://listen.rba.co.rw/radios/logos/radiointeko.PNG"
+    }
+  },
+  {
+    "id": "radioisano",
+    "name": "Radio Isano",
+    "dial": {
+      "display": "92.0 FM",
+      "mhz": 92.0,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RI",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Rubona",
+      "region": "Western Province",
+      "reach": "Regional"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://fire.doscast.com/8036/stream",
+      "format": null,
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://cdn-profiles.tunein.com/s354720/images/logod.png"
+    }
+  },
+  {
+    "id": "radioizuba",
+    "name": "Radio Izuba",
+    "dial": {
+      "display": "100.0 FM",
+      "mhz": 100.0,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "IZUB",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Kibungo",
+      "region": "Eastern Province",
+      "reach": "Regional"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://stream-291.surfernetwork.com/vbn7vhzh2v8uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ2Ym43dmh6aDJ2OHV2IiwiaG9zdCI6InN0cmVhbS0yOTEuc3VyZmVybmV0d29yay5jb20iLCJydHRsIjo1LCJqdGkiOiIySjJ1SzJuVlE2MndFQ2VYU194OEF3IiwiaWF0IjoxNzkxNjkxMTgxLCJleHAiOjE3OTE2OTEyNDF9.FNJg_ro_h0aXjV77cFmdgV93M1YFvzejT8NDZ92Ut6c",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "radiomaria",
+    "name": "Radio Maria Rwanda",
+    "dial": {
+      "display": "97.3 FM",
+      "mhz": 97.3,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RMR",
+      "background": "#1B1724",
+      "textColor": "#F3E8FF",
+      "accentColor": "#A855F7",
+      "theme": "muted-violet"
+    },
+    "coverage": {
+      "location": "Jari",
+      "region": "Rwanda",
+      "reach": "National"
+    },
+    "categories": ["religious"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://dreamsiteradiocp2.com/proxy/rmrwanda2?mp=/stream",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "radiomusanze",
+    "name": "Radio Musanze",
+    "dial": {
+      "display": "98.4 FM",
+      "mhz": 98.4,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RM",
+      "background": "#181B20",
+      "textColor": "#E2E8F0",
+      "accentColor": "#64748B",
+      "theme": "slate"
+    },
+    "coverage": {
+      "location": "Mugogo",
+      "region": "Northern Province",
+      "reach": "Regional"
+    },
+    "categories": ["community", "news"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://listen.rba.co.rw:8003/musanze",
+      "format": "mp3",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://listen.rba.co.rw/radios/logos/radiomusanze.PNG"
+    }
+  },
+  {
+    "id": "radionyagatare",
+    "name": "Radio Nyagatare",
+    "dial": {
+      "display": "95.5 FM",
+      "mhz": 95.5,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RN",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Nyarupfubire",
+      "region": "Eastern Province",
+      "reach": "Regional"
+    },
+    "categories": ["community", "news"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://listen.rba.co.rw:3053/nyagatare",
+      "format": null,
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://listen.rba.co.rw/radios/logos/radionya.PNG"
+    }
+  },
+  {
+    "id": "radioo",
+    "name": "Radio O",
+    "dial": {
+      "display": "92.8 FM",
+      "mhz": 92.8,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "R-O",
+      "background": "#1B1724",
+      "textColor": "#F3E8FF",
+      "accentColor": "#A855F7",
+      "theme": "muted-violet"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": null,
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "radioone",
+    "name": "Radio One",
+    "dial": {
+      "display": "91.1 FM",
+      "mhz": 91.1,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "ONE",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["news", "music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "active",
+      "url": "https://prime.tv1.rw/radio",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "tv": {
+      "status": "active",
+      "url": "https://live.tv1.rw/index.m3u8",
+      "format": null,
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "radiorubavu",
+    "name": "Radio Rubavu",
+    "dial": {
+      "display": "95.1 FM",
+      "mhz": 95.1,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RR",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Rubona",
+      "region": "Western Province",
+      "reach": "Regional"
+    },
+    "categories": ["community", "news"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://listen.rba.co.rw:8004/rubavu",
+      "format": "mp3",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://listen.rba.co.rw/radios/logos/radiorubavu.PNG"
+    }
+  },
+  {
+    "id": "radiorusizi",
+    "name": "Radio Rusizi",
+    "dial": {
+      "display": "89.8 FM",
+      "mhz": 89.8,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RR",
+      "background": "#1B1724",
+      "textColor": "#F3E8FF",
+      "accentColor": "#A855F7",
+      "theme": "muted-violet"
+    },
+    "coverage": {
+      "location": "Nyabitimbo",
+      "region": "Western Province",
+      "reach": "Regional"
+    },
+    "categories": ["community", "news"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://listen.rba.co.rw:8009/rusizi",
+      "format": "mp3",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://listen.rba.co.rw/radios/logos/radiorusizi.PNG"
+    }
+  },
+  {
+    "id": "radiorwanda",
+    "name": "Radio Rwanda",
+    "dial": {
+      "display": "100.7 FM",
+      "mhz": 100.7,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RBA",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "National"
+    },
+    "categories": ["news", "music", "public service"],
+    "languages": ["Kinyarwanda", "English", "French"],
+    "stream": {
+      "status": "active",
+      "url": "https://listen.rba.co.rw:8008/rwanda/;",
+      "format": "mp3",
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "tv": {
+      "status": "active",
+      "url": "https://5c46fa289c89f.streamlock.net/rtv25/rtv/chunklist_w1510714426.m3u8",
+      "format": "HLS",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://rba.co.rw/admin/media_data/cover_photo/RBALO218ff.jpg"
+    }
+  },
+  {
+    "id": "salus",
+    "name": "Radio Salus",
+    "dial": {
+      "display": "101.9 FM",
+      "mhz": 101.9,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "SLUS",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["news", "community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://salus.ur.ac.rw/radio-stream.php",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "https://salus.ur.ac.rw",
+      "logo": "https://salus.ur.ac.rw/uploads/Saluslogo.png"
+    }
+  },
+  {
+    "id": "radio10",
+    "name": "Radio10",
+    "dial": {
+      "display": "87.6 FM",
+      "mhz": 87.6,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "R10",
+      "background": "#181B20",
+      "textColor": "#E2E8F0",
+      "accentColor": "#64748B",
+      "theme": "slate"
+    },
+    "coverage": {
+      "location": "Jali / Kigali",
+      "region": "Kigali",
+      "reach": "National"
+    },
+    "categories": ["news", "music"],
+    "languages": ["Kinyarwanda", "English", "French"],
+    "stream": {
+      "status": "active",
+      "url": "https://radio10rwanda-atunwadigital.streamguys1.com/Radio10Rwanda",
+      "format": "mp3",
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "tv": {
+      "status": "active",
+      "url": "https://5c46fa289c89f.streamlock.net/pub1live/mystream/playlist.m3u8",
+      "format": "HLS",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "https://radiotv10.rw/radio/",
+      "logo": "https://cdn.radoxo.com/images/rwanda/radio-tv-10.webp"
+    }
+  },
+  {
+    "id": "umucyo",
+    "name": "Radio Umucyo",
+    "dial": {
+      "display": "102.8 FM",
+      "mhz": 102.8,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "UMCY",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["religious"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": null,
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "royalfm",
+    "name": "Royal FM",
+    "dial": {
+      "display": "94.3 FM",
+      "mhz": 94.3,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "ROYL",
+      "background": "#0F1A24",
+      "textColor": "#E0F2FE",
+      "accentColor": "#38BDF8",
+      "theme": "cadet-blue"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://s11.myradiostream.com/26760/listen.mp3",
+      "format": "mp3",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "rfi",
+    "name": "RFI Radio",
+    "dial": {
+      "display": "91.9 FM",
+      "mhz": 91.9,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "RFI",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "National"
+    },
+    "categories": ["news"],
+    "languages": ["French"],
+    "stream": {
+      "status": "active",
+      "url": "https://rfimonde64k.ice.infomaniak.ch/rfimonde-64.mp3",
+      "format": "mp3",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "https://www.rfi.fr",
+      "logo": "https://s.rfi.fr/media/display/20f7c302-b9e2-11ed-86cc-005056a90321/w:246/p:1x1/carre-1200-DIRECT-Monde%20%281%29.webp"
+    }
+  },
+  {
+    "id": "sana",
+    "name": "Sana Radio",
+    "dial": {
+      "display": "98.0 FM",
+      "mhz": 98.0,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "SANA",
+      "background": "#181B20",
+      "textColor": "#E2E8F0",
+      "accentColor": "#64748B",
+      "theme": "slate"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["religious", "community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": null,
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "voicehope",
+    "name": "The Voice of Hope",
+    "dial": {
+      "display": "106.4 FM",
+      "mhz": 106.4,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "TVOH",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["religious"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://edge.iono.fm/xhls/318_medium.m3u8?ref=https%3A%2F%2Fiono.fm%2Fs%2F318&adToken=&pofToken=",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": "https://cdn.iono.fm/files/p3750/logo_3750_20250905_165648_750.jpeg"
+    }
+  },
+  {
+    "id": "thechoicelive",
+    "name": "The Choice Live",
+    "dial": {
+      "display": "Online",
+      "mhz": null,
+      "type": "Digital"
+    },
+    "badge": {
+      "monogram": "TCL",
+      "background": "#0F1A24",
+      "textColor": "#E0F2FE",
+      "accentColor": "#38BDF8",
+      "theme": "cadet-blue"
+    },
+    "coverage": {
+      "location": "Online",
+      "region": "Rwanda",
+      "reach": "Online"
+    },
+    "categories": ["community"],
+    "languages": [],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/37uyt4kd468uv",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "urbanradio",
+    "name": "Urban Radio",
+    "dial": {
+      "display": "106.7 FM",
+      "mhz": 106.7,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "UR",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Kigali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["music", "entertainment"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": null,
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "umwezifm",
+    "name": "Umwezi FM",
+    "dial": {
+      "display": "95.3 FM",
+      "mhz": 95.3,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "UF",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://umwezi-radio-streamer.onrender.com/radio",
+      "format": null,
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "https://www.umwezi-fm.com/rw",
+      "logo": "https://cdn.radoxo.com/images/rwanda/umwezi-radio-953-fm.webp"
+    }
+  },
+  {
+    "id": "voiceafrica",
+    "name": "Voice of Africa",
+    "dial": {
+      "display": "94.7 FM",
+      "mhz": 94.7,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "AFR",
+      "background": "#1B1724",
+      "textColor": "#F3E8FF",
+      "accentColor": "#A855F7",
+      "theme": "muted-violet"
+    },
+    "coverage": {
+      "location": "Jali",
+      "region": "Kigali",
+      "reach": "Regional"
+    },
+    "categories": ["news", "community"],
+    "languages": ["English", "Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/kh4b0hch5suuv",
+      "format": "mp3",
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "voicefm",
+    "name": "Voice FM",
+    "dial": {
+      "display": "94.5 FM",
+      "mhz": 94.5,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "VF",
+      "background": "#1C1917",
+      "textColor": "#F5F5F4",
+      "accentColor": "#78716C",
+      "theme": "warm-stone"
+    },
+    "coverage": {
+      "location": "Rwamagana",
+      "region": "Eastern Province",
+      "reach": "Regional"
+    },
+    "categories": ["music", "community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "https://stream4.rcast.net/73995",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "biryogo",
+    "name": "Biryogo Radio",
+    "dial": {
+      "display": "Online",
+      "mhz": null,
+      "type": "Digital"
+    },
+    "badge": {
+      "monogram": "BR",
+      "background": "#102018",
+      "textColor": "#DCFCE7",
+      "accentColor": "#34D399",
+      "theme": "broadcast-green"
+    },
+    "coverage": {
+      "location": "Online",
+      "region": "Rwanda",
+      "reach": "Online"
+    },
+    "categories": ["community"],
+    "languages": ["Kinyarwanda"],
+    "stream": {
+      "status": "active",
+      "url": "https://stream.zeno.fm/kh4b0hch5suuv",
+      "format": null,
+      "statusLabel": "Stream URL Listed · Verify Playback"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "authentic",
+    "name": "Authentic Radio",
+    "dial": {
+      "display": "92.8 FM",
+      "mhz": 92.8,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "AUTH",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Kigali",
+      "region": "Kigali",
+      "reach": "National"
+    },
+    "categories": ["religious"],
+    "languages": ["Kinyarwanda", "English"],
+    "stream": {
+      "status": "catalog_only",
+      "url": "",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  },
+  {
+    "id": "kc2",
+    "name": "KC2 Tv",
+    "dial": {
+      "display": "92.8 FM",
+      "mhz": 92.8,
+      "type": "FM"
+    },
+    "badge": {
+      "monogram": "KC2",
+      "background": "#221711",
+      "textColor": "#FFEDD5",
+      "accentColor": "#FB923C",
+      "theme": "amber-signal"
+    },
+    "coverage": {
+      "location": "Kigali",
+      "region": "Kigali",
+      "reach": "National"
+    },
+    "categories": ["music", "entertainment"],
+    "languages": ["English"],
+    "stream": {
+      "status": "",
+      "url": "",
+      "format": null,
+      "statusLabel": "Catalog Only · No Stream"
+    },
+    "tv": {
+      "url": "https://5c46fa289c89f.streamlock.net/kc2/kc2/chunklist_w1494255026.m3u8",
+      "status": "active",
+      "format": "HLS",
+      "statusLabel": "Live Stream"
+    },
+    "links": {
+      "website": "",
+      "logo": ""
+    }
+  }
+]
