@@ -6,7 +6,7 @@
  * It is rendered once, in the root shell immediately after <head>, so every page has exactly one tag.
  * Production builds only, so local development doesn't pollute the property.
  */
-export const GA_MEASUREMENT_ID = "G-73W4SD7YHF";
+export const GA_MEASUREMENT_ID = "G-16K9XR8XSM";
 export const GA_ENABLED = import.meta.env.PROD;
 export const GA_SRC = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
 export const GA_INLINE = `window.dataLayer = window.dataLayer || [];

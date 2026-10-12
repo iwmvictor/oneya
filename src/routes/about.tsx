@@ -120,6 +120,25 @@ function About() {
             availability still depends on the broadcaster, so a stream can occasionally be offline.
           </p>
 
+          {/* https://forms.gle/QSdeJJhG951Dmc5u8 */}
+          <div className="p-6 bg-card mt-6  ">
+            <h2 className="text-[18px] mb-1 mt-1 font-bold">Help us improve ONEYA</h2>
+            <p className="mt-2">
+              ONEYA is still growing, and we'd like to hear about your experience. Tell us what
+              works, what doesn't, or what you'd like to see improved.
+            </p>
+            <div className="mt-4">
+              <a
+                href="https://forms.gle/QSdeJJhG951Dmc5u8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 py-2 font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                Share your feedback
+              </a>
+            </div>
+          </div>
+
           {canOfferInstall && (
             <div className="mt-8 flex items-center gap-3 rounded-lg border border-border bg-card p-4">
               <p className="flex-1">
