@@ -1,14 +1,14 @@
-# Kigali Vibes Radio
+# Oneya
 
 **Listen to Rwanda, wherever you are.**
 
-Kigali Vibes Radio is a mobile-first Progressive Web App (PWA) for discovering and listening to radio stations broadcasting from Rwanda. Built for listeners at home and across the diaspora, it provides a simple, reliable way to stay connected to Rwanda through live radio.
+Oneya is a mobile-first Progressive Web App (PWA) for discovering and listening to radio stations broadcasting from Rwanda. Built for listeners at home and across the diaspora, it provides a simple, reliable way to stay connected to Rwanda through live radio.
 
 > **Operations & release notes:** See [`docs/OPERATIONS.md`](docs/OPERATIONS.md) for live radio and TV, PWA installation and offline behavior, SEO, Google Analytics 4 (GA4), Search Console, asset preparation, and deployment instructions.
 
 ## Overview
 
-Kigali Vibes Radio is built around one essential experience:
+Oneya is built around one essential experience:
 
 **Find a station → Press play → Listen.**
 
@@ -258,7 +258,7 @@ Installation capabilities vary by browser and operating system.
 
 ## Design Principles
 
-Kigali Vibes Radio should feel like a polished consumer radio product rather than a generic landing page or dashboard.
+Oneya should feel like a polished consumer radio product rather than a generic landing page or dashboard.
 
 The interface prioritizes:
 
@@ -368,4 +368,4 @@ Add the project's chosen license here. Until a license is included in the reposi
 
 ---
 
-**Kigali Vibes Radio — Listen to Rwanda, wherever you are.**
+**Oneya — Listen to Rwanda, wherever you are.**
